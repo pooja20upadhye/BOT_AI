@@ -1,8 +1,22 @@
 import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../theme.css';
 
-function Navbar() {
+function NavbarWithLogout() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Remove user data from localStorage
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    
+    // Redirect to login page
+    navigate('/login');
+    
+    // Optional: You might want to add an API call to invalidate the token on the server
+    // axiosInstance.post('/auth/logout');
+  };
+
   return (
     <AppBar 
       position="static"
@@ -32,24 +46,8 @@ function Navbar() {
         </Typography>
         <Box sx={{ display: 'flex', gap: 'var(--spacing-medium)' }}>
           <Button 
-            color="inherit" 
-            component={Link} 
-            to="/signup"
-            sx={{
-              color: 'var(--text-light)',
-              '&:hover': {
-                backgroundColor: 'var(--primary-dark)',
-                transform: 'translateY(-2px)',
-                transition: 'var(--transition-fast)'
-              }
-            }}
-          >
-            Signup
-          </Button>
-          <Button 
             variant="outlined" 
-            component={Link} 
-            to="/login"
+            onClick={handleLogout}
             sx={{
               color: 'var(--text-light)',
               borderColor: 'var(--text-light)',
@@ -61,7 +59,7 @@ function Navbar() {
               }
             }}
           >
-            Login
+            Logout
           </Button>
         </Box>
       </Toolbar>
@@ -69,4 +67,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default NavbarWithLogout;

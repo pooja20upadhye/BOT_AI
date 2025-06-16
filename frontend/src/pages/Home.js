@@ -29,7 +29,7 @@ function Home() {
             mb: 'var(--spacing-medium)'
           }}
         >
-          Build Your Custom AI Chatbot
+      Build and Chat with Smart AI Bots
         </Typography>
         
         <Typography 
@@ -39,11 +39,12 @@ function Home() {
             fontSize: '1.1rem',
             lineHeight: 1.6,
             mb: 'var(--spacing-large)',
-            maxWidth: '400px'
+            // maxWidth: '400px'
           }}
         >
-          Our platform lets you create intelligent chatbots in minutes. Simply upload your content, 
-          customize the personality, and deploy anywhere.
+          Create intelligent chatbots tailored to your needs. Whether you're a bot creator training custom bots or a user exploring and chatting with them, our platform offers a seamless experience. Manage, train, and interact — all in one place. Start building your AI assistant today!
+
+
         </Typography>
         
         <Box sx={{ 

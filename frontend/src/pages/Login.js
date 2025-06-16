@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { TextField, Button, Container, Typography, Box, Paper } from '@mui/material';
-import axios from 'axios';
+import axiosInstance from '../utils/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import '../theme.css';
+import NavbarNoButtons from '../components/NavbarNoButtons';
 
 function Login() {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -16,16 +17,18 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', formData);
+      const res = await axiosInstance.post('/auth/login', formData);
       localStorage.setItem('token', res.data.token);
-      navigate('/');
+      localStorage.setItem('user', JSON.stringify(res.data.user));
+      navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
+      setError(err.response?.data?.message || 'Login failed. Please check your credentials and try again.');
     }
   };
 
+
   return (
-    <Box sx={{
+    <><NavbarNoButtons /><Box sx={{
       minHeight: '100vh',
       display: 'flex',
       alignItems: 'center',
@@ -47,9 +50,9 @@ function Login() {
             justifyContent: 'center',
             p: 'var(--spacing-xxl)'
           }}>
-            <Typography 
-              variant="h3" 
-              sx={{ 
+            <Typography
+              variant="h3"
+              sx={{
                 mb: 'var(--spacing-medium)',
                 color: 'var(--primary-color)',
                 fontWeight: 'bold'
@@ -57,20 +60,20 @@ function Login() {
             >
               Welcome Back
             </Typography>
-            <Typography 
-              variant="body1" 
-              sx={{ 
+            <Typography
+              variant="body1"
+              sx={{
                 mb: 'var(--spacing-xl)',
                 color: 'var(--gray-medium)'
               }}
             >
               Sign in to continue to ChatSphere
             </Typography>
-            
+
             {error && (
-              <Typography 
-                color="error" 
-                sx={{ 
+              <Typography
+                color="error"
+                sx={{
                   mb: 'var(--spacing-medium)',
                   backgroundColor: 'rgba(247, 37, 133, 0.1)',
                   p: 'var(--spacing-small)',
@@ -80,7 +83,7 @@ function Login() {
                 {error}
               </Typography>
             )}
-            
+
             <form onSubmit={handleSubmit} style={{ width: '100%' }}>
               <TextField
                 label="Email"
@@ -96,8 +99,7 @@ function Login() {
                   '& .MuiOutlinedInput-root': {
                     borderRadius: 'var(--border-radius)',
                   }
-                }}
-              />
+                }} />
               <TextField
                 label="Password"
                 name="password"
@@ -112,13 +114,12 @@ function Login() {
                   '& .MuiOutlinedInput-root': {
                     borderRadius: 'var(--border-radius)',
                   }
-                }}
-              />
-              <Button 
-                type="submit" 
-                variant="contained" 
-                fullWidth 
-                sx={{ 
+                }} />
+              <Button
+                type="submit"
+                variant="contained"
+                fullWidth
+                sx={{
                   mt: 2,
                   py: 'var(--spacing-small)',
                   borderRadius: 'var(--border-radius)',
@@ -133,17 +134,17 @@ function Login() {
                 Login
               </Button>
             </form>
-            
-            <Typography 
-              sx={{ 
+
+            <Typography
+              sx={{
                 mt: 'var(--spacing-large)',
                 color: 'var(--gray-medium)'
               }}
             >
               Don't have an account?{' '}
-              <Typography 
-                component="span" 
-                sx={{ 
+              <Typography
+                component="span"
+                sx={{
                   color: 'var(--primary-color)',
                   fontWeight: 'bold',
                   cursor: 'pointer',
@@ -168,7 +169,7 @@ function Login() {
           }} />
         </Paper>
       </Container>
-    </Box>
+    </Box></>
   );
 }
 

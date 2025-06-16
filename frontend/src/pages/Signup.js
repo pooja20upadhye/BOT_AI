@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { TextField, Button, Container, Typography, Box, Grid, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import '../theme.css';
-import axios from 'axios';
+import axiosInstance from '../utils/axiosInstance';
+import NavbarNoButtons from '../components/NavbarNoButtons';
 function Signup() {
   const [formData, setFormData] = useState({ username: '', email: '', password: '' });
   const [error, setError] = useState('');
@@ -15,16 +16,16 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/signup', formData);
+      const res = await axiosInstance.post('/auth/signup', formData);
       localStorage.setItem('token', res.data.token);
-      navigate('/');
+      navigate('/login');
     } catch (err) {
       setError(err.response?.data?.message || 'Signup failed');
     }
   };
 
   return (
-    <Box sx={{
+    <><NavbarNoButtons /><Box sx={{
       minHeight: '100vh',
       display: 'flex',
       alignItems: 'center',
@@ -46,9 +47,9 @@ function Signup() {
             justifyContent: 'center',
             p: 'var(--spacing-xxl)'
           }}>
-            <Typography 
-              variant="h3" 
-              sx={{ 
+            <Typography
+              variant="h3"
+              sx={{
                 mb: 'var(--spacing-medium)',
                 color: 'var(--primary-color)',
                 fontWeight: 'bold'
@@ -56,20 +57,20 @@ function Signup() {
             >
               Create Account
             </Typography>
-            <Typography 
-              variant="body1" 
-              sx={{ 
+            <Typography
+              variant="body1"
+              sx={{
                 mb: 'var(--spacing-xl)',
                 color: 'var(--gray-medium)'
               }}
             >
               Join ChatSphere today
             </Typography>
-            
+
             {error && (
-              <Typography 
-                color="error" 
-                sx={{ 
+              <Typography
+                color="error"
+                sx={{
                   mb: 'var(--spacing-medium)',
                   backgroundColor: 'rgba(247, 37, 133, 0.1)',
                   p: 'var(--spacing-small)',
@@ -79,7 +80,7 @@ function Signup() {
                 {error}
               </Typography>
             )}
-            
+
             <form onSubmit={handleSubmit} style={{ width: '100%' }}>
               <TextField
                 label="Username"
@@ -94,8 +95,7 @@ function Signup() {
                   '& .MuiOutlinedInput-root': {
                     borderRadius: 'var(--border-radius)',
                   }
-                }}
-              />
+                }} />
               <TextField
                 label="Email"
                 name="email"
@@ -110,8 +110,7 @@ function Signup() {
                   '& .MuiOutlinedInput-root': {
                     borderRadius: 'var(--border-radius)',
                   }
-                }}
-              />
+                }} />
               <TextField
                 label="Password"
                 name="password"
@@ -126,13 +125,12 @@ function Signup() {
                   '& .MuiOutlinedInput-root': {
                     borderRadius: 'var(--border-radius)',
                   }
-                }}
-              />
-              <Button 
-                type="submit" 
-                variant="contained" 
-                fullWidth 
-                sx={{ 
+                }} />
+              <Button
+                type="submit"
+                variant="contained"
+                fullWidth
+                sx={{
                   mt: 2,
                   py: 'var(--spacing-small)',
                   borderRadius: 'var(--border-radius)',
@@ -147,17 +145,17 @@ function Signup() {
                 Sign Up
               </Button>
             </form>
-            
-            <Typography 
-              sx={{ 
+
+            <Typography
+              sx={{
                 mt: 'var(--spacing-large)',
                 color: 'var(--gray-medium)'
               }}
             >
               Already have an account?{' '}
-              <Typography 
-                component="span" 
-                sx={{ 
+              <Typography
+                component="span"
+                sx={{
                   color: 'var(--primary-color)',
                   fontWeight: 'bold',
                   cursor: 'pointer',
@@ -182,7 +180,7 @@ function Signup() {
           }} />
         </Paper>
       </Container>
-    </Box>
+    </Box></>
   );
 }
 
