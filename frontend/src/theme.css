@@ -1,0 +1,48 @@
+:root {
+  /* Color palette */
+  --primary-color: #7611c9;
+  --primary-light: #b191eb;
+  --primary-dark: #3d0072;
+  --secondary-color: #b786df;
+  --success-color: #c6f5d5;
+  --background-light: #f8f9fa;
+  --background-dark: #212529;
+  --text-light: #f8f9fa;
+  --text-dark: #212529;
+  --gray-light: #e9ecef;
+  --gray-medium: #adb5bd;
+  
+  /* Spacing */
+  --spacing-small: 8px;
+  --spacing-medium: 16px;
+  --spacing-large: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+  
+  /* Borders */
+  --border-radius: 12px;
+  --border-radius-lg: 20px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.3s ease;
+}
+
+/* Global styles */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background-light);
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
